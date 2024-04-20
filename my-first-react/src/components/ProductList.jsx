@@ -1,6 +1,8 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import ProductItem from "./ProductItem";
 import productsNetwork from "../services/productsNetwork";
+import { Button } from "primereact/button";
+import { Toast } from "primereact/toast";
 
 function ProductList() {
   async function addHandler() {
@@ -15,15 +17,25 @@ function ProductList() {
     try {
       const result = await productsNetwork.postProduct(product);
       if (result) {
-        alert("Inserido com sucesso!");
+        toast.current.show({
+          severity: "success",
+          summary: "Product added",
+          life: 3000,
+        });
       }
     } catch (error) {
       console.log(error);
-      alert("Something went wrong! Please contact the site administrator");
+      toast.current.show({
+        severity: "error",
+        summary: "Error adding product",
+        detail: "Please contact the website administrator",
+        life: 3000,
+      });
     }
   }
 
   const [products, setProducts] = useState([]);
+  const toast = useRef(null);
 
   useEffect(function () {
     productsNetwork.getProducts().then(function (result) {
@@ -33,7 +45,8 @@ function ProductList() {
 
   return (
     <>
-      <button onClick={addHandler}>Add Product</button>
+      <Toast ref={toast} />
+      <Button onClick={addHandler}>Add Product</Button>
       {products.map((product) => (
         <ProductItem product={product} key={product.id} />
       ))}
