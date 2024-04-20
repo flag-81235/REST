@@ -8,6 +8,24 @@ console.log(numbers);
 //     }
 // }
 
-const smallNumbers = numbers.filter(number => number < 10);
+// const smallNumber = numbers.filter(function(item) {
+//     return item > 10;
+// });
 
-console.log(smallNumbers);
+// const surprisedNumbers = [];
+// numbers.forEach(function(item) {
+//     surprisedNumbers.push(item + "!");
+// })
+
+const surprisedNumbers = numbers.map(function(item) {
+    if (item > 10 ) {
+        return item + "!";
+    }
+    return item + "";
+});
+
+const names = ["Bob", "Sarah", "Joe", "Louie"];
+
+const namesLi = names.map(item => "<li>" + item + "</li>");
+
+console.log(namesLi)
