@@ -1,3 +1,9 @@
+import PropTypes from "prop-types";
+
+ProductItem.propTypes = {
+  product: PropTypes.object,
+};
+
 function ProductItem({ product }) {
   return (
     <>
